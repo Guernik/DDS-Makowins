@@ -1,0 +1,39 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Prenda{
+    - basePrice: double
+    - tipoPrenda: ETiposPrenda
+    - estadoPrendaStrat: IEstadoPrendaStrategy
+    
+    + static newPrendaNueva()
+    + static newPrendaPromocion()
+    + static newPrendaLiquidacion()
+}
+class Venta{}
+
+
+package strat_estados {
+
+    interface IEstadoPrendaStrategy
+    class StratPrendaLiquidacion{}
+    class StratPrendaNueva{}
+    class StratPrendaPromo{}
+
+    IEstadoPrendaStrategy <|.. StratPrendaLiquidacion
+    IEstadoPrendaStrategy <|.. StratPrendaNueva
+    IEstadoPrendaStrategy <|.. StratPrendaPromo
+
+}
+
+
+
+enum ETiposPrenda {
+	SACO
+	PANTALON
+	CAMISA
+}
+
+Prenda --> ETiposPrenda
+Prenda --> IEstadoPrendaStrategy
+@enduml
